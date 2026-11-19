@@ -1,0 +1,14 @@
+.DS_Store
+build/
+dist/
+.build/
+.buildtest/
+.swiftpm/
+*.log
+*.log.*
+*.o
+*.dylib
+*.app/
+*.dSYM/
+*.exe
+docs/captures/

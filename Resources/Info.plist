@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>KMLink</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.local.kmlink</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>KMLink</string>
+    <key>CFBundleDisplayName</key>
+    <string>KMLink</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>13.0</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.utilities</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2026 KMLink.</string>
+    <key>NSDesktopFolderUsageDescription</key>
+    <string>KMLink accesses files on your Desktop when you copy or drag them to the connected PC.</string>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>KMLink accesses files in your Documents folder when you copy or drag them to the connected PC.</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>KMLink accesses files in your Downloads folder when you copy or drag them to the connected PC.</string>
+</dict>
+</plist>

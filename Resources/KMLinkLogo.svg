@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" fill="none">
+  <defs>
+    <filter id="appShadow" x="-15%" y="-12%" width="130%" height="134%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020617" flood-opacity="0.40"/>
+    </filter>
+    <filter id="arcGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="cursorShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#040B24" flood-opacity="0.55"/>
+    </filter>
+
+    <!-- Deep Sapphire-to-Indigo Backdrop -->
+    <radialGradient id="sapphireGlow" cx="22%" cy="18%" r="85%">
+      <stop offset="0%" stop-color="#0F63AD"/>
+      <stop offset="48%" stop-color="#1A2D7C"/>
+      <stop offset="100%" stop-color="#0E0E45"/>
+    </radialGradient>
+
+    <linearGradient id="topSheen" x1="512" y1="100" x2="512" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="30%" stop-color="#FFFFFF" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Frosted Glass Display Tiles -->
+    <linearGradient id="leftGlass" x1="232" y1="342" x2="500" y2="682" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#B9D5FF" stop-opacity="0.42"/>
+      <stop offset="55%" stop-color="#769CD8" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#4A64A8" stop-opacity="0.30"/>
+    </linearGradient>
+
+    <linearGradient id="rightGlass" x1="524" y1="342" x2="792" y2="682" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#B4C6FF" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#6B79BA" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#3E448A" stop-opacity="0.28"/>
+    </linearGradient>
+
+    <linearGradient id="glassRim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.58"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.38"/>
+    </linearGradient>
+
+    <!-- Kinetic Bridge Arc Gradient -->
+    <linearGradient id="bridgeArcGrad" x1="344" y1="572" x2="600" y2="490" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.10"/>
+      <stop offset="45%" stop-color="#38BDF8" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#A5F3FC" stop-opacity="1.0"/>
+    </linearGradient>
+
+    <!-- Continuous macOS Squircle Path (Apple SwiftUI .continuous 824x824 in 1024x1024) -->
+    <path id="squirclePath" d="M 924.00,512.00 L 924.00,640.59 C 924.00,722.19 924.00,763.00 910.11,806.92 C 892.66,854.88 854.88,892.66 806.92,910.11 C 763.00,924.00 722.19,924.00 640.59,924.00 L 383.41,924.00 C 301.81,924.00 261.00,924.00 217.08,910.11 C 169.12,892.66 131.34,854.88 113.89,806.92 C 100.00,763.00 100.00,722.19 100.00,640.59 L 100.00,383.41 C 100.00,301.81 100.00,261.00 113.89,217.08 C 131.34,169.12 169.12,131.34 217.08,113.89 C 261.00,100.00 301.81,100.00 383.41,100.00 L 640.59,100.00 C 722.19,100.00 763.00,100.00 806.92,113.89 C 854.88,131.34 892.66,169.12 910.11,217.08 C 924.00,261.00 924.00,301.81 924.00,383.41 Z"/>
+
+    <clipPath id="squircleClip">
+      <use href="#squirclePath"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer App Icon Squircle -->
+  <g filter="url(#appShadow)">
+    <use href="#squirclePath" fill="url(#sapphireGlow)"/>
+  </g>
+
+  <g clip-path="url(#squircleClip)">
+    <use href="#squirclePath" fill="url(#topSheen)"/>
+
+    <!-- Left Frosted Display -->
+    <g filter="url(#cardShadow)">
+      <rect x="234" y="344" width="268" height="336" rx="28" fill="url(#leftGlass)" stroke="url(#glassRim)" stroke-width="3"/>
+    </g>
+
+    <!-- Right Frosted Display -->
+    <g filter="url(#cardShadow)">
+      <rect x="522" y="344" width="268" height="336" rx="28" fill="url(#rightGlass)" stroke="url(#glassRim)" stroke-width="3"/>
+    </g>
+
+    <!-- Glowing Kinetic Bridge Arc Crossing the Screen Gap -->
+    <path d="M 348,572 C 424,486 520,478 588,504 L 580,528 C 516,502 426,506 348,572 Z"
+          fill="url(#bridgeArcGrad)" filter="url(#arcGlow)"/>
+
+    <!-- Precision White macOS Pointer Crossing Into Right Screen -->
+    <path d="M 564,442 L 586,584 L 616,548 L 642,596 L 664,583 L 638,535 L 680,524 Z"
+          fill="#FFFFFF" filter="url(#cursorShadow)"/>
+
+    <!-- Crisp Inner Squircle Rim -->
+    <use href="#squirclePath" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="4"/>
+  </g>
+</svg>

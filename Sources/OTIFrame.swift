@@ -263,18 +263,22 @@ public enum OTIXML {
     /// the `<Param_Screen_Info><OTIMSG>` structure sent by Windows GO! Bridge.
     public static func postRemoteScreenInfoPayload(width: Int, height: Int,
                                                    virtualX: Int = 0, virtualY: Int = 0) -> Data {
-        let screenInfo = "<OTIMSG>"
-            + "<Param_Virtual_Screen_Width>\(width)</Param_Virtual_Screen_Width>"
-            + "<Param_Virtual_Screen_Height>\(height)</Param_Virtual_Screen_Height>"
-            + "<Param_Left_Side_Virtual_Screen_Coordinate>\(virtualX)</Param_Left_Side_Virtual_Screen_Coordinate>"
-            + "<Param_Top_Side_Virtual_Screen_Coordinate>\(virtualY)</Param_Top_Side_Virtual_Screen_Coordinate>"
-            + "<Param_Remote_Screen_Width>\(width)</Param_Remote_Screen_Width>"
-            + "<Param_Remote_Screen_Height>\(height)</Param_Remote_Screen_Height>"
-            + "</OTIMSG>"
-        let inner = "<OTIMSG><NP_Cmd>Cmd_Post_Remote_Screen_Info</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\(clipboardPipeName)</NP_Up_Notice_NamePipe_Name>"
-            + "<Param_Screen_Info>\(screenInfo)</Param_Screen_Info>"
-            + "</OTIMSG>"
+        let screenInfo = [
+            "<OTIMSG>",
+            "<Param_Virtual_Screen_Width>\(width)</Param_Virtual_Screen_Width>",
+            "<Param_Virtual_Screen_Height>\(height)</Param_Virtual_Screen_Height>",
+            "<Param_Left_Side_Virtual_Screen_Coordinate>\(virtualX)</Param_Left_Side_Virtual_Screen_Coordinate>",
+            "<Param_Top_Side_Virtual_Screen_Coordinate>\(virtualY)</Param_Top_Side_Virtual_Screen_Coordinate>",
+            "<Param_Remote_Screen_Width>\(width)</Param_Remote_Screen_Width>",
+            "<Param_Remote_Screen_Height>\(height)</Param_Remote_Screen_Height>",
+            "</OTIMSG>"
+        ].joined()
+        let inner = [
+            "<OTIMSG><NP_Cmd>Cmd_Post_Remote_Screen_Info</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\(clipboardPipeName)</NP_Up_Notice_NamePipe_Name>",
+            "<Param_Screen_Info>\(screenInfo)</Param_Screen_Info>",
+            "</OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
@@ -386,13 +390,15 @@ public enum OTIXML {
         var utf16 = text.data(using: .utf16LittleEndian) ?? Data()
         utf16.append(contentsOf: [0, 0])
         let hex = utf16.map { String(format: "%02X", $0) }.joined()
-        let inner = "<OTIMSG><Param_Clipboard_Info_2><OTIMSG>"
-            + "<CP_Content>\(hex)</CP_Content>"
-            + "<CB_Format_Type>CB_Format_Text</CB_Format_Type>"
-            + "</OTIMSG></Param_Clipboard_Info_2>"
-            + "<NP_Cmd>Cmd_Transfer_Clipboard</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>"
-            + "</OTIMSG>"
+        let inner = [
+            "<OTIMSG><Param_Clipboard_Info_2><OTIMSG>",
+            "<CP_Content>\(hex)</CP_Content>",
+            "<CB_Format_Type>CB_Format_Text</CB_Format_Type>",
+            "</OTIMSG></Param_Clipboard_Info_2>",
+            "<NP_Cmd>Cmd_Transfer_Clipboard</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>",
+            "</OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
@@ -407,13 +413,15 @@ public enum OTIXML {
                 modifiedAt: file.modifiedAt).map { String(format: "%02X", $0) }.joined()
             return "<Line><NodeInfo>\(hex)</NodeInfo></Line>"
         }.joined()
-        let inner = "<OTIMSG><Param_Clipboard_Info_2><OTIMSG>"
-            + "<NodeInfoList>\(lines)</NodeInfoList>"
-            + "<CB_Format_Type>CB_Format_File</CB_Format_Type>"
-            + "</OTIMSG></Param_Clipboard_Info_2>"
-            + "<NP_Cmd>Cmd_Transfer_Clipboard</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>"
-            + "</OTIMSG>"
+        let inner = [
+            "<OTIMSG><Param_Clipboard_Info_2><OTIMSG>",
+            "<NodeInfoList>\(lines)</NodeInfoList>",
+            "<CB_Format_Type>CB_Format_File</CB_Format_Type>",
+            "</OTIMSG></Param_Clipboard_Info_2>",
+            "<NP_Cmd>Cmd_Transfer_Clipboard</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>",
+            "</OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
@@ -427,12 +435,14 @@ public enum OTIXML {
         capsLock: Bool = false,
         naturalScroll: Bool = true
     ) -> Data {
-        let inner = "<OTIMSG><NP_Cmd>Cmd_Get_KM_Switch_Acknowlege</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>"
-            + "<Param_Remote_Screen_Size><OTIMSG>"
-            + "<Param_CapsLock>\(capsLock ? 1 : 0)</Param_CapsLock>"
-            + "<Param_ScrollDirection>\(naturalScroll ? "Natural" : "Normal")</Param_ScrollDirection>"
-            + "</OTIMSG></Param_Remote_Screen_Size></OTIMSG>"
+        let inner = [
+            "<OTIMSG><NP_Cmd>Cmd_Get_KM_Switch_Acknowlege</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>",
+            "<Param_Remote_Screen_Size><OTIMSG>",
+            "<Param_CapsLock>\(capsLock ? 1 : 0)</Param_CapsLock>",
+            "<Param_ScrollDirection>\(naturalScroll ? "Natural" : "Normal")</Param_ScrollDirection>",
+            "</OTIMSG></Param_Remote_Screen_Size></OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
@@ -489,22 +499,26 @@ public enum OTIXML {
         let pointData = pointEventData(option: option, screenWidth: width, screenHeight: height,
                                        moveOutY: y)
         let escapedSetting = escapedKMSettingXML(direction: direction, option: option, hotkeyOnly: 0)
-        let moveOut = "<OTIMSG>"
-            + "<Param_Point_Event_Data>\(pointData)</Param_Point_Event_Data>"
-            + "<Param_Move_Out_Direction>\(direction)</Param_Move_Out_Direction>"
-            + "<Param_Move_Out_X>\(x)</Param_Move_Out_X>"
-            + "<Param_Move_Out_Y>\(y)</Param_Move_Out_Y>"
-            + "<Param_Move_Out_KM_Switch_Option>\(option)</Param_Move_Out_KM_Switch_Option>"
-            + "<Param_Move_Out_Use_Hotkey_Switch_Only>0</Param_Move_Out_Use_Hotkey_Switch_Only>"
-            + "<Param_Other_PC_Position_Option>\(direction)</Param_Other_PC_Position_Option>"
-            + "<Param_Remote_Screen_Width>\(width)</Param_Remote_Screen_Width>"
-            + "<Param_Remote_Screen_Height>\(height)</Param_Remote_Screen_Height>"
-            + "<Param_KM_Setting_Info>\(escapedSetting)</Param_KM_Setting_Info>"
-            + "</OTIMSG>"
-        let inner = "<OTIMSG><NP_Cmd>Cmd_Notify_KM_Switch_To_Remote</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\(clipboardPipeName)</NP_Up_Notice_NamePipe_Name>"
-            + "<Param_Move_Out_Info>\(moveOut)</Param_Move_Out_Info>"
-            + "<Param_Clipboard_Info_2></Param_Clipboard_Info_2></OTIMSG>"
+        let moveOut = [
+            "<OTIMSG>",
+            "<Param_Point_Event_Data>\(pointData)</Param_Point_Event_Data>",
+            "<Param_Move_Out_Direction>\(direction)</Param_Move_Out_Direction>",
+            "<Param_Move_Out_X>\(x)</Param_Move_Out_X>",
+            "<Param_Move_Out_Y>\(y)</Param_Move_Out_Y>",
+            "<Param_Move_Out_KM_Switch_Option>\(option)</Param_Move_Out_KM_Switch_Option>",
+            "<Param_Move_Out_Use_Hotkey_Switch_Only>0</Param_Move_Out_Use_Hotkey_Switch_Only>",
+            "<Param_Other_PC_Position_Option>\(direction)</Param_Other_PC_Position_Option>",
+            "<Param_Remote_Screen_Width>\(width)</Param_Remote_Screen_Width>",
+            "<Param_Remote_Screen_Height>\(height)</Param_Remote_Screen_Height>",
+            "<Param_KM_Setting_Info>\(escapedSetting)</Param_KM_Setting_Info>",
+            "</OTIMSG>"
+        ].joined()
+        let inner = [
+            "<OTIMSG><NP_Cmd>Cmd_Notify_KM_Switch_To_Remote</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\(clipboardPipeName)</NP_Up_Notice_NamePipe_Name>",
+            "<Param_Move_Out_Info>\(moveOut)</Param_Move_Out_Info>",
+            "<Param_Clipboard_Info_2></Param_Clipboard_Info_2></OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
@@ -516,13 +530,15 @@ public enum OTIXML {
     }
 
     public static func forceRemoteSwitchLocalPayload(x: Int, y: Int, direction: Int) -> Data {
-        let inner = "<OTIMSG><NP_Cmd>Cmd_Force_Remote_To_Switch_Local</NP_Cmd>"
-            + "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>"
-            + "<Param_Move_In_Info><OTIMSG>"
-            + "<Param_Move_In_X>\(x)</Param_Move_In_X>"
-            + "<Param_Move_In_Y>\(y)</Param_Move_In_Y>"
-            + "<Param_Move_In_Direction>\(direction)</Param_Move_In_Direction>"
-            + "</OTIMSG></Param_Move_In_Info></OTIMSG>"
+        let inner = [
+            "<OTIMSG><NP_Cmd>Cmd_Force_Remote_To_Switch_Local</NP_Cmd>",
+            "<NP_Up_Notice_NamePipe_Name>\\\\.\\pipe\\OTI_ClipboardAgent</NP_Up_Notice_NamePipe_Name>",
+            "<Param_Move_In_Info><OTIMSG>",
+            "<Param_Move_In_X>\(x)</Param_Move_In_X>",
+            "<Param_Move_In_Y>\(y)</Param_Move_In_Y>",
+            "<Param_Move_In_Direction>\(direction)</Param_Move_In_Direction>",
+            "</OTIMSG></Param_Move_In_Info></OTIMSG>"
+        ].joined()
         return envelope(inner)
     }
 
